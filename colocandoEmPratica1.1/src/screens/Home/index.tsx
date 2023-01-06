@@ -1,15 +1,17 @@
-import { ChangeEvent, KeyboardEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useState } from "react";
+import { ItemTotal } from "../../components/ItemTotal";
 import { ButtonStyles, ContainerButtons, ContainerHome, ContainerInputs } from "./styles";
 
 
 export function Home() {
-    const [totalTextValue, setTotalTextValue] = useState('')
+    const [totalTextValue, setTotalTextValue] = useState(0)
     const [firstValue, setFirstValue] = useState('')
     const [secondValue, setsecondValue] = useState('')
+    const [totalList, setTotalList] = useState<number[]>([])
 
     function Calculate(e: MouseEvent<HTMLButtonElement>) {
         const operationType = e.currentTarget.textContent
-        let total
+        let total = 0
         switch (operationType) {
             case '+':
                 total = (Number(firstValue) + Number(secondValue))
@@ -19,7 +21,7 @@ export function Home() {
                 total =(Number(firstValue) - Number(secondValue))
             break;
 
-            case '/':
+            case '÷':
                 total =(Number(firstValue) / Number(secondValue))
             break;
 
@@ -27,7 +29,15 @@ export function Home() {
                 total =(Number(firstValue) * Number(secondValue))
             break;
         }
-        setTotalTextValue(String(total))
+
+        ResetAndSetValues(total)
+    }
+
+    function ResetAndSetValues(total: number){
+        setFirstValue('')
+        setsecondValue('')
+        setTotalTextValue(total)
+        setTotalList((state) => [...state, total])
     }
 
 
@@ -53,6 +63,12 @@ export function Home() {
             </ContainerButtons>
 
             <h2>{totalTextValue}</h2>
+
+            <h3>Lista De Resultados</h3>
+
+            {totalList.map((item) => {
+                return <ItemTotal key={item + totalList.length} total={item} />
+            })}
         </ContainerHome>
     )
 }

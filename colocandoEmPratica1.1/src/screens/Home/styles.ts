@@ -17,6 +17,11 @@ export const ContainerHome = styled.div`
     h2{
         margin-top: 1rem;
         color: #FFF;
+        margin-bottom: 2rem;
+    }
+
+    h3{
+        color: #FFF;
     }
 `
 

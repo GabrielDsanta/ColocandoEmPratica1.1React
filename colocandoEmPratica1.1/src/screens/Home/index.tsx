@@ -1,4 +1,5 @@
 import { ChangeEvent, MouseEvent, useState } from "react";
+import { InputNumber } from "../../components/InputNumber";
 import { ItemTotal } from "../../components/ItemTotal";
 import { ButtonStyles, ContainerButtons, ContainerHome, ContainerInputs } from "./styles";
 
@@ -18,22 +19,22 @@ export function Home() {
                 break;
 
             case '-':
-                total =(Number(firstValue) - Number(secondValue))
-            break;
+                total = (Number(firstValue) - Number(secondValue))
+                break;
 
             case '÷':
-                total =(Number(firstValue) / Number(secondValue))
-            break;
+                total = (Number(firstValue) / Number(secondValue))
+                break;
 
             case 'x':
-                total =(Number(firstValue) * Number(secondValue))
-            break;
+                total = (Number(firstValue) * Number(secondValue))
+                break;
         }
 
         ResetAndSetValues(total)
     }
 
-    function ResetAndSetValues(total: number){
+    function ResetAndSetValues(total: number) {
         setFirstValue('')
         setsecondValue('')
         setTotalTextValue(total)
@@ -45,8 +46,18 @@ export function Home() {
         <ContainerHome>
             <h1>Calculadora</h1>
             <ContainerInputs>
-                <input value={firstValue} onChange={(e: ChangeEvent<HTMLInputElement>) => setFirstValue(e.target.value)} type="text" />
-                <input value={secondValue} onChange={(e: ChangeEvent<HTMLInputElement>) => setsecondValue(e.target.value)} type="text" />
+                <InputNumber
+                    setValue={setFirstValue}
+                    value={firstValue}
+                    functionOnChange={(e: ChangeEvent<HTMLInputElement>) => setFirstValue(e.target.value)}
+                />
+
+
+                <InputNumber
+                    setValue={setsecondValue}
+                    value={secondValue}
+                    functionOnChange={(e: ChangeEvent<HTMLInputElement>) => setsecondValue(e.target.value)}
+                />
             </ContainerInputs>
 
             <ContainerButtons>
